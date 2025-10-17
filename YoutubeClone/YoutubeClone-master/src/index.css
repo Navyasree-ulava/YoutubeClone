@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .custom-h {
+        height: calc(100% - 3.5rem);
+    }
+
+    .grid-cols-auto {
+        grid-template-columns: auto 1fr;
+    }
+
+    .grid-cols-full {
+        grid-column: 1 / -1;
+    }
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+.poster-img::before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 56.25%;
+    border-radius: inherit;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.load-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #fdba2c;
+}
+
+.bar {
+    content: "";
+    display: inline;
+    position: absolute;
+    width: 0;
+    height: 100%;
+    left: 50%;
+    text-align: center;
+}
+
+.bar:nth-child(1) {
+    background-color: #da4733;
+    animation: loading 3s linear infinite;
+}
+
+.bar:nth-child(2) {
+    background-color: #3b78e7;
+    animation: loading 3s linear 1s infinite;
+}
+
+.bar:nth-child(3) {
+    background-color: #fdba2c;
+    animation: loading 3s linear 2s infinite;
+}
+
+.player-container,
+.player-progress {
+    position: relative;
+    width: 100%;
+}
+
+.player-progress::before,
+.player-progress::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+
+.player-progress::after,
+.player-container .player-thumb {
+    background-color: red;
+}
+
+.player-progress::after {
+    right: calc(100% - var(--progress-position));
+}
+
+.player-container:hover .player-progress::after {
+    right: calc(100% - var(--progress-position));
+}
+
+.player-container .player-thumb {
+    right: calc(100% - var(--progress-position, 0));
+    left: auto;
+}
+
+.player-container input[type=range]::-webkit-slider-runnable-track,
+.player-container input[type=range]::-webkit-slider-thumb,
+.player-container input[type=range]::-moz-range-thumb {
+    border: transparent;
+    background-color: red;
+}
+
+@keyframes loading {
+    from {
+        left: 50%;
+        width: 0;
+        z-index: 100;
+    }
+
+    33.3333% {
+        left: 0;
+        width: 100%;
+        z-index: 10;
+    }
+
+    to {
+        left: 0;
+        width: 100%;
+    }
+}
+
+@keyframes play-fade {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        visibility: hidden;
+    }
+}
+
+@keyframes pause-fade {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        visibility: hidden;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
